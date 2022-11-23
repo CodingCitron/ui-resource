@@ -8,21 +8,14 @@ const treeData = [
                 name: 'child-1',
                 children: [
                     {
-                        id: 1,
-                        name: 'child-1',
+                        id: 12,
+                        name: 'child-3',
                         children: [
-        
+                        
                         ]
                     },
                     {
-                        id: 2,
-                        name: 'child-2',
-                        children: [
-                            
-                        ]
-                    },
-                    {
-                        id: 3,
+                        id: 12,
                         name: 'child-3',
                         children: [
                             
@@ -31,57 +24,17 @@ const treeData = [
                 ]
             },
             {
-                id: 2,
+                id: 5,
                 name: 'child-2',
                 children: [
-                    {
-                        id: 1,
-                        name: 'child-1',
-                        children: [
-                            {
-                                id: 1,
-                                name: 'child-1',
-                                children: [
-                
-                                ]
-                            },
-                            {
-                                id: 2,
-                                name: 'child-2',
-                                children: [
-                                    
-                                ]
-                            },
-                            {
-                                id: 3,
-                                name: 'child-3',
-                                children: [
-                                    
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        id: 2,
-                        name: 'child-2',
-                        children: [
-                            
-                        ]
-                    },
-                    {
-                        id: 3,
-                        name: 'child-3',
-                        children: [
-                            
-                        ]
-                    }
+                    
                 ]
             },
             {
-                id: 3,
+                id: 12,
                 name: 'child-3',
                 children: [
-                    
+                  
                 ]
             }
         ]

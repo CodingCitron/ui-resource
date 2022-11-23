@@ -11,6 +11,8 @@ function SVGMaker(config) {
         ...config.style
     }
 
+    this.text = config.text
+
     this.el = document.createElementNS(SVG, this.nodeName)
     this.init()
 }
@@ -30,6 +32,10 @@ SVGMaker.prototype.init = function() {
         })
 
         this.el.setAttribute('d', String)
+    }
+
+    if(this.nodeName === 'text') {
+        this.el.textContent = this.text
     }
 }
 
