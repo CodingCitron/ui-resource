@@ -6,13 +6,23 @@ const container = document.querySelector('.svg-container')
 const SVGContainer = new SVGMaker({
     nodeName: 'svg',
     style: {
-        width: '1000',
-        height: '1000'
+        width: '500',
+        height: '500'
     },
-    viewBox: [-20, -25, 1000, 1000]
+    viewBox: [-20, -25, 600, 600]
 })
 
 container.append(SVGContainer.el)
+
+
+const procession = [
+
+]
+
+function treeToProcession(data){
+
+}
+
 
 /*
 1. 선을 만든다.
@@ -85,6 +95,7 @@ function treeDraw(data, x, y, interval){
 
     function recursion(data, x, y, interval, style) {
         let height = 0
+        let minusValue = 0
         // let repo = []
 
         if(!Array.isArray(data)) {
@@ -97,6 +108,7 @@ function treeDraw(data, x, y, interval){
         }  
 
         data.forEach(obj => {
+            console.log(height)
             drawText(
                 x * interval, 
                 (y + height) * interval - 10, 
@@ -105,17 +117,20 @@ function treeDraw(data, x, y, interval){
             )
 
             if(hasProp(obj, 'children')) {
-                draw(
-                    x * interval, 
-                    (y + height) * interval, 
-                    interval, 
-                    0, 
-                    style
-                )
-
                 height++
 
-                if(obj.children.length === 0) return 
+                if(obj.children.length === 0) return
+
+                    // 자식이 있는 경우에만 그린다. 
+                    // xDraw
+                    draw(
+                        x * interval, 
+                        (y + height - 1) * interval, 
+                        interval, 
+                        0, 
+                        style
+                    ) 
+
                     const value = recursion(
                         obj.children, 
                         x + 1, 
@@ -124,16 +139,17 @@ function treeDraw(data, x, y, interval){
                         style
                     )
 
-                    console.log(value)
-                    height += value
+                    draw(
+                        (x + 1) * interval, 
+                        (y + height - 1) * interval, 
+                        0, 
+                        interval * (value - 1), 
+                        style
+                    ) 
 
-                draw(
-                    (x + 1) * interval, 
-                    y * interval, 
-                    0, 
-                    interval * (y + value - 1), 
-                    style
-                )
+                    // console.log(minusValue)
+                    console.log(value)
+                    height += value - 1
             }
         })
 

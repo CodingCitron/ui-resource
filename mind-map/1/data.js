@@ -11,7 +11,67 @@ const treeData = [
                         id: 12,
                         name: 'child-3',
                         children: [
-                        
+                            {
+                                id: 14,
+                                name: 'child-3',
+                                children: [
+                                
+                                ]
+                            },
+                            {
+                                id: 15,
+                                name: 'child-3',
+                                children: [
+                                    
+                                ]
+                            },
+                            {
+                                id: 14,
+                                name: 'child-3',
+                                children: [
+                                
+                                ]
+                            },
+                            {
+                                id: 15,
+                                name: 'child-3',
+                                children: [
+                                    
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 12,
+                        name: 'child-3',
+                        children: [
+                            {
+                                id: 14,
+                                name: 'child-3',
+                                children: [
+                                    
+                                ]
+                            },
+                            {
+                                id: 15,
+                                name: 'child-3',
+                                children: [
+                                    
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 5,
+                name: 'child-2',
+                children: [
+                    {
+                        id: 12,
+                        name: 'child-3',
+                        children: [
+                            
                         ]
                     },
                     {
@@ -23,20 +83,6 @@ const treeData = [
                     }
                 ]
             },
-            {
-                id: 5,
-                name: 'child-2',
-                children: [
-                    
-                ]
-            },
-            {
-                id: 12,
-                name: 'child-3',
-                children: [
-                  
-                ]
-            }
         ]
     },
 ]
