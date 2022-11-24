@@ -7,75 +7,42 @@ const treeData = [
                 id: 1,
                 name: 'child-1',
                 children: [
-                    {
-                        id: 12,
-                        name: 'child-3',
-                        children: [
-                            {
-                                id: 14,
-                                name: 'child-3',
-                                children: [
-                                
-                                ]
-                            },
-                            {
-                                id: 15,
-                                name: 'child-3',
-                                children: [
-                                    
-                                ]
-                            },
-                            {
-                                id: 14,
-                                name: 'child-3',
-                                children: [
-                                
-                                ]
-                            },
-                            {
-                                id: 15,
-                                name: 'child-3',
-                                children: [
-                                    
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        id: 12,
-                        name: 'child-3',
-                        children: [
-                            {
-                                id: 14,
-                                name: 'child-3',
-                                children: [
-                                    
-                                ]
-                            },
-                            {
-                                id: 15,
-                                name: 'child-3',
-                                children: [
-                                    
-                                ]
-                            }
-                        ]
-                    }
+                    
                 ]
             },
             {
-                id: 5,
-                name: 'child-2',
+                id: 3,
+                name: 'child-3',
                 children: [
                     {
-                        id: 12,
-                        name: 'child-3',
+                        id: 1,
+                        name: 'child-1',
                         children: [
                             
                         ]
                     },
                     {
-                        id: 12,
+                        id: 3,
+                        name: 'child-3',
+                        children: [
+                            
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 3,
+                name: 'child-3',
+                children: [
+                    {
+                        id: 1,
+                        name: 'child-1',
+                        children: [
+                            
+                        ]
+                    },
+                    {
+                        id: 3,
                         name: 'child-3',
                         children: [
                             

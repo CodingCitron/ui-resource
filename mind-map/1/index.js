@@ -95,7 +95,6 @@ function treeDraw(data, x, y, interval){
 
     function recursion(data, x, y, interval, style) {
         let height = 0
-        let minusValue = 0
         // let repo = []
 
         if(!Array.isArray(data)) {
@@ -107,49 +106,94 @@ function treeDraw(data, x, y, interval){
             }
         }  
 
-        data.forEach(obj => {
-            console.log(height)
-            drawText(
+        data.forEach((obj, index) => {
+            let value = 0
+            // console.log(height)
+            drawText (
                 x * interval, 
                 (y + height) * interval - 10, 
                 obj.id, 
                 { fontSize: '10px' }
             )
 
+            // const yDrawObj = draw(
+            //     x * interval, 
+            //     (y + height) * interval, 
+            //     0, 
+            //     (y + height + 1) * interval,
+            //     style
+            // )
+
             if(hasProp(obj, 'children')) {
                 height++
 
-                if(obj.children.length === 0) return
+                if(obj.children.length !== 0) { 
 
                     // 자식이 있는 경우에만 그린다. 
                     // xDraw
-                    draw(
+                    const xDrawObj = draw (
                         x * interval, 
                         (y + height - 1) * interval, 
                         interval, 
                         0, 
                         style
-                    ) 
-
-                    const value = recursion(
+                    )
+                    
+                    value = recursion (
                         obj.children, 
                         x + 1, 
                         (y + height - 1), 
                         interval, 
                         style
                     )
+                    const temp = height
+                    height-- 
+                    
+                    let endpoint = interval * (value - 1)
+                    
+                    // console.log(data[index + 1])
 
-                    draw(
-                        (x + 1) * interval, 
-                        (y + height - 1) * interval, 
-                        0, 
-                        interval * (value - 1), 
-                        style
-                    ) 
+                    if(!(
+                        data[index + 1] && 
+                        data[index + 1].children.length === 0
+                        )
+                    ) { // 마지막 위치
+                        const { m, l } = xDrawObj.d
+                        const yStart = parseInt(m.split(' ')[1])
 
-                    // console.log(minusValue)
-                    console.log(value)
-                    height += value - 1
+                        const afterStage = data[index + 1] && data[index + 1].children.length
+                        const childLength = data[index].children.length
+                        endpoint = (childLength - 1) * interval
+
+                        // if(afterStage) {
+                        //     // endpoint = afterStage * interval
+                        //     console.log(afterStage === childLength)
+                        //     console.log(afterStage)
+                        //     console.log(childLength)
+                        //     console.log(endpoint)
+                        //     console.log(temp)
+
+                        //     // if(afterStage > childLength) {
+                        //     //     endpoint = (afterStage - 1) * interval
+                        //     // } else {
+                        //     //     endpoint = (childLength - 1) * interval
+                        //     // }
+                        //     console.log(obj)
+                        //     endpoint = ((afterStage - 1) + (childLength - 1)) * interval
+                        // }
+
+                        const yDrawObj = draw(
+                            (x + 1) * interval, 
+                            yStart, 
+                            0, 
+                            endpoint,
+                            style
+                        )
+                        console.log(yDrawObj.el)
+                    } 
+                
+                    height += value
+                }
             }
         })
 
@@ -160,7 +204,7 @@ function treeDraw(data, x, y, interval){
 }
 
 function draw(x, y, endX, endY, style){
-    const index = svgs.push(
+    const length = svgs.push(
         new SVGMaker({
             nodeName: 'path',
             d: {
@@ -175,11 +219,11 @@ function draw(x, y, endX, endY, style){
         })
     )
 
-    return index
+    return svgs[length - 1]
 }
 
 function drawText(x, y, text, style){
-    const index = svgs.push(
+    const length = svgs.push(
         new SVGMaker({
             nodeName: 'text',
             text: text,
@@ -193,10 +237,10 @@ function drawText(x, y, text, style){
         })
     )
 
-    return index
+    return svgs[length - 1]
 }
 
-treeDraw(treeData, 0, 0, 50)    
+treeDraw(treeData, 0, 0, 100)    
 
 // setSVGTree(treeData, 0, 0, 100)
 svgs.forEach(obj => SVGContainer.el.append(obj.el))
