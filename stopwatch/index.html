@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="st">
+
+    </div>
+    <script>
+        function Stopwatch(el, cycle) {
+            this.el = el
+            this.elapsedTime = 0
+            this.currentTime = 0
+            this.startTime = 0
+
+            this.paused = true
+            this.intervalId = null
+            
+            this.hours = 0
+            this.mins = 0
+            this.secs = 0
+
+            this.cycle = cycle
+        }
+
+        Stopwatch.prototype.start = function() {
+            if(!this.paused) return
+                this.paused = false
+
+                this.startTime = Date.now() - this.elapsedTime
+                this.intervalId = setInterval(this.updateTime.bind(this), this.cycle)
+        }
+
+        Stopwatch.prototype.paused = function() {
+            if(this.paused) return
+                this.paused = true
+
+                this.elapsedTime = Date.now() - this.startTime
+                clearInterval(this.intervalId)
+        }
+
+        Stopwatch.prototype.reset = function() {
+            this.paused = true
+            clearInterval(this.intervalId)
+
+            this.elapsedTime = 0
+            this.currentTime = 0
+            this.startTime = 0
+            this.hours = 0
+            this.mins = 0
+            this.secs = 0
+
+            this.el.textContent = `00:00:00`
+        }
+
+        Stopwatch.prototype.updateTime = function() {
+            this.elapsedTime = Date.now() - this.startTime
+
+            this.secs = Math.floor((this.elapsedTime / 1000) % 60)
+            this.mins = Math.floor((this.elapsedTime / (1000 * 60)) % 60)
+            this.hours = Math.floor((this.elapsedTime / (1000 * 60 * 60)) % 60)
+            console.log(this.hours, this.mins, this.secs)
+
+            this.secs = this.pad(this.secs)
+            this.mins = this.pad(this.mins)
+            this.hours = this.pad(this.hours)
+
+            console.log(this.hours, this.mins, this.secs)
+            this.el.textContent = `${this.hours}:${this.mins}:${this.secs}`
+        }
+
+        Stopwatch.prototype.pad = function(unit) {
+            return (('0') + unit).length > 2 ? unit : '0' + unit
+        }
+
+        const st = new Stopwatch(document.querySelector('.st'), 100)
+        st.start()
+    </script>
+</body>
+</html>

@@ -94,9 +94,6 @@ function treeDraw(data, x, y, interval){
     }
 
     function recursion(data, x, y, interval, style) {
-        let height = 0
-        // let repo = []
-
         if(!Array.isArray(data)) {
             // 루트 그리기
             console.log(data)
@@ -104,100 +101,58 @@ function treeDraw(data, x, y, interval){
             if(hasProp(obj, 'children')) {
                 return recursion(obj.children)
             }
-        }  
+        }
+        
+        let cnt = 0
 
         data.forEach((obj, index) => {
-            let value = 0
+            cnt++
+
             // console.log(height)
             drawText (
                 x * interval, 
-                (y + height) * interval - 10, 
+                ((y + index)  * interval) - 10, 
                 obj.id, 
                 { fontSize: '10px' }
             )
 
-            // const yDrawObj = draw(
-            //     x * interval, 
-            //     (y + height) * interval, 
-            //     0, 
-            //     (y + height + 1) * interval,
-            //     style
-            // )
-
             if(hasProp(obj, 'children')) {
-                height++
-
                 if(obj.children.length !== 0) { 
+
+                    let value = recursion (
+                        obj.children, 
+                        x + 1, 
+                        (y + index), 
+                        interval, 
+                        style
+                    )
+
+                    console.log(value)
 
                     // 자식이 있는 경우에만 그린다. 
                     // xDraw
                     const xDrawObj = draw (
                         x * interval, 
-                        (y + height - 1) * interval, 
+                        (y + index) * interval, 
                         interval, 
                         0, 
                         style
                     )
                     
-                    value = recursion (
-                        obj.children, 
-                        x + 1, 
-                        (y + height - 1), 
-                        interval, 
-                        style
-                    )
-                    const temp = height
-                    height-- 
-                    
-                    let endpoint = interval * (value - 1)
-                    
-                    // console.log(data[index + 1])
-
-                    if(!(
-                        data[index + 1] && 
-                        data[index + 1].children.length === 0
-                        )
-                    ) { // 마지막 위치
-                        const { m, l } = xDrawObj.d
-                        const yStart = parseInt(m.split(' ')[1])
-
-                        const afterStage = data[index + 1] && data[index + 1].children.length
-                        const childLength = data[index].children.length
-                        endpoint = (childLength - 1) * interval
-
-                        // if(afterStage) {
-                        //     // endpoint = afterStage * interval
-                        //     console.log(afterStage === childLength)
-                        //     console.log(afterStage)
-                        //     console.log(childLength)
-                        //     console.log(endpoint)
-                        //     console.log(temp)
-
-                        //     // if(afterStage > childLength) {
-                        //     //     endpoint = (afterStage - 1) * interval
-                        //     // } else {
-                        //     //     endpoint = (childLength - 1) * interval
-                        //     // }
-                        //     console.log(obj)
-                        //     endpoint = ((afterStage - 1) + (childLength - 1)) * interval
-                        // }
-
-                        const yDrawObj = draw(
-                            (x + 1) * interval, 
-                            yStart, 
+                    if(index !== 0) {
+                        const yDrawObj = draw (
+                            x * interval, 
+                            (y + index - 1) * interval, 
                             0, 
-                            endpoint,
+                            interval, 
                             style
                         )
-                        console.log(yDrawObj.el)
-                    } 
-                
-                    height += value
+                    }
                 }
             }
         })
 
-        return height
+        return cnt
     }
 
     recursion(data, x, y, interval, style)
